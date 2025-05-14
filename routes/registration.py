@@ -20,17 +20,14 @@ def register():
     form = request.form
     file = request.files.get('payment_receipt')
 
-    # Validate file
     if not file or not allowed_file(file.filename):
         flash('Invalid or missing payment receipt file.')
         return redirect(url_for('registration.index'))
 
-    # Save file securely
     filename = secure_filename(file.filename)
     filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
     file.save(filepath)
 
-    # Get DB connection
     db, cursor = get_db()
 
     sql = """

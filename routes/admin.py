@@ -1,8 +1,9 @@
+#routes/admin.py
 from flask import Blueprint, request, render_template, redirect, url_for, flash
 from werkzeug.security import check_password_hash, generate_password_hash
 from models.database import get_db
 from utils.helpers import encode_auth_token
-from utils.decorators import token_required  # Adjust the path if needed
+from utils.decorators import token_required  
 
 admin_bp = Blueprint('admin', __name__)
 
@@ -25,8 +26,7 @@ def login():
 
         if user and check_password_hash(user['password'], password): 
             token = encode_auth_token(user['id'])
-            flash('Login successful', 'success')
-            # Ensure token is passed correctly in the URL for redirect
+            flash('Login successful', 'success') 
             return redirect(url_for('admin.view_registrations', token=token))  
         else:
             flash('Invalid credentials', 'danger')
@@ -34,7 +34,7 @@ def login():
 
     return render_template('login.html') 
 
-# Registration route for creating admin user
+# /registration
 @admin_bp.route('/registration', methods=['GET', 'POST'])
 def register_admin():
     if request.method == 'POST':
@@ -46,7 +46,7 @@ def register_admin():
             flash('Missing username or password', 'danger')
             return redirect(url_for('admin.register_admin'))
 
-        # Hash the password for storage
+       
         hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
 
         db, cursor = get_db()
@@ -54,7 +54,7 @@ def register_admin():
         db.commit()
 
         flash('Admin registered successfully!', 'success')
-        return redirect(url_for('admin.login'))  # Fixed this line
+        return redirect(url_for('admin.login')) 
 
     return render_template('adminreg.html')  
 
@@ -63,8 +63,6 @@ def register_admin():
 @token_required
 def view_registrations(user_id):
     db, cursor = get_db()
-    
-    # Fetch all registrations from the database
     cursor.execute("SELECT * FROM registrations")
     registrations = cursor.fetchall()
     print("Registrations:", registrations)

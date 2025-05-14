@@ -3,10 +3,8 @@ from dotenv import load_dotenv
 import jwt
 import datetime
 
-# Load environment variables from .env file
 load_dotenv()
 
-# Retrieve the SECRET_KEY from environment variables
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 if not SECRET_KEY:
@@ -24,11 +22,10 @@ def encode_auth_token(user_id):
     """
     try:
         payload = {
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1),  # Token expires in 1 day
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1),  
             'iat': datetime.datetime.utcnow(),
-            'sub': user_id  # Subject is the user_id
-        }
-        # Ensure the token is returned as a string
+            'sub': user_id  
+        } 
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
         return token.decode('utf-8') if isinstance(token, bytes) else token
     except Exception as e:
@@ -38,10 +35,9 @@ def decode_auth_token(auth_token):
     """
     Decodes the Auth Token to get the user_id
     """
-    try:
-        # Decode the token using the secret key and algorithm
+    try: 
         payload = jwt.decode(auth_token, SECRET_KEY, algorithms=['HS256'])
-        return payload['sub']  # Return the user_id from the payload
+        return payload['sub']  
     except jwt.ExpiredSignatureError:
         return 'Token has expired'
     except jwt.InvalidTokenError:
