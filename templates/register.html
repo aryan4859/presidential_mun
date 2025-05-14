@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Presidential MUN Registration</title>
+  <link rel="stylesheet" href="https://presidential.edu.np/sales-conqueror/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    form {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 0.75rem;
+      margin: 0.5rem 0 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    label {
+      font-weight: 600;
+    }
+    button {
+      background-color: #004080;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="/static/logo.png" alt="Presidential MUN Logo" style="max-height: 80px; margin: 1rem auto; display: block;">
+    <h1 style="text-align: center; font-size: 2rem;">Presidential Model United Nations</h1>
+  </header>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul>
+        {% for message in messages %}
+          <li style="color: green; font-weight: bold; text-align: center;">{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+
+  <form action="/register" method="POST" enctype="multipart/form-data">
+    <label>First Name *</label>
+    <input type="text" name="first_name" required>
+
+    <label>Last Name *</label>
+    <input type="text" name="last_name" required>
+
+    <label>Email *</label>
+    <input type="email" name="email" required>
+
+    <label>Current Address *</label>
+    <input type="text" name="current_address" required>
+
+    <label>Date of Birth</label>
+    <input type="date" name="dob">
+
+    <label>Primary Phone Number *</label>
+    <input type="tel" name="phone1" required>
+
+    <label>Secondary Phone Number</label>
+    <input type="tel" name="phone2">
+
+    <label>Number linked to WhatsApp</label>
+    <input type="tel" name="whatsapp">
+
+    <label>Food Preference</label>
+    <input type="text" name="food_pref">
+
+    <label>Previously Enrolled College</label>
+    <input type="text" name="prev_college">
+
+    <label>Stream</label>
+    <input type="text" name="stream">
+
+    <label>Have you done any MUN’s before this?</label>
+    <input type="text" name="prev_mun">
+
+    <label>What committee would you like to be a part of? *</label>
+    <select name="primary_committee" required>
+      <option value="">-- Select --</option>
+      {% for committee in committees %}
+        <option value="{{ committee }}">{{ committee }}</option>
+      {% endfor %}
+    </select>
+
+    <label>If not allocated to your primary choice, choose second preference *</label>
+    <select name="secondary_committee" required>
+      <option value="">-- Select --</option>
+      {% for committee in committees %}
+        <option value="{{ committee }}">{{ committee }}</option>
+      {% endfor %}
+    </select>
+
+    <label>In your view, how can young leaders in Nepal contribute to solving global issues while remaining rooted in their local communities? *</label>
+    <textarea name="contrib_view" required></textarea>
+
+    <label>Describe how participating in the Presidential Model United Nations aligns with your future academic or professional goals. *</label>
+    <textarea name="future_goals" required></textarea>
+
+    <label>Do you suffer from any medical conditions? *</label>
+    <textarea name="medical" required></textarea>
+
+    <label>Upload Payment Receipt (JPG/PNG/PDF)</label>
+    <input type="file" name="payment_receipt" accept=".jpg,.jpeg,.png,.pdf" required>
+
+    <button type="submit">Submit Registration</button>
+  </form>
+</body>
+</html>

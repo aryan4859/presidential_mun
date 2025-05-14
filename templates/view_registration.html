@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Presidential MUN Registrations</title>
+  <link rel="stylesheet" href="https://presidential.edu.np/sales-conqueror/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .flash-message {
+      color: green;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="/static/logo.png" alt="Presidential MUN Logo" style="max-height: 80px; margin: 1rem auto; display: block;">
+    <h1 style="text-align: center; font-size: 2rem;">Presidential Model United Nations</h1>
+  </header>
+
+  <div class="container">
+    <h2 style="text-align: center;">View Registrations</h2>
+
+    <!-- Registrations Table -->
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Primary Committee</th>
+          <th>Secondary Committee</th> 
+          <th>Food Preference</th>
+          <th>Food Preference</th>
+          <th>Food Preference</th>
+          <th>Food Preference</th>
+          <th>Food Preference</th>
+          <th>Food Preference</th>
+          <th>Food Preference</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for registration in registrations %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>{{ registration['first_name'] }}</td>
+          <td>{{ registration['last_name'] }}</td>
+          <td>{{ registration['email'] }}</td>
+          <td>{{ registration['phone1'] }}</td>
+          <td>{{ registration['primary_committee'] }}</td>
+          <td>{{ registration['secondary_committee'] }}</td>
+          <td>{{ registration['food_pref'] }}</td>
+          <td>{{ registration['prev_college'] }}</td>
+          <td>{{ registration['prev_mun'] }}</td>
+          <td>{{ registration['primary_committee'] }}</td>
+          <td>{{ registration['secondary_committee'] }}</td>
+          <td>{{ registration['contrib_view'] }}</td>
+          <td>{{ registration['future_goals'] }}</td>
+          <td>{{ registration['medical'] }}</td>
+          <td>{{ registration['payment_receipt_path'] }}</td> 
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>
