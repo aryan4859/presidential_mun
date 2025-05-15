@@ -42,17 +42,7 @@
   <header>
     <img src="/static/logo.png" alt="Presidential MUN Logo" style="max-height: 80px; margin: 1rem auto; display: block;">
     <h1 style="text-align: center; font-size: 2rem;">Presidential Model United Nations</h1>
-  </header>
-
-  {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      <ul>
-        {% for message in messages %}
-          <li style="color: green; font-weight: bold; text-align: center;">{{ message }}</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-  {% endwith %}
+  </header> 
 
   <form action="/register" method="POST" enctype="multipart/form-data">
     <label>First Name *</label>

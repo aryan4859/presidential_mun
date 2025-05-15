@@ -16,31 +16,3 @@ def allowed_file(filename):
     """
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in {'pdf', 'png', 'jpg', 'jpeg'}
 
-def encode_auth_token(user_id):
-    """
-    Generates the Auth Token for a user
-    """
-    try:
-        payload = {
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1),  
-            'iat': datetime.datetime.utcnow(),
-            'sub': user_id  
-        } 
-        token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
-        return token.decode('utf-8') if isinstance(token, bytes) else token
-    except Exception as e:
-        return str(e)
-
-def decode_auth_token(auth_token):
-    """
-    Decodes the Auth Token to get the user_id
-    """
-    try: 
-        payload = jwt.decode(auth_token, SECRET_KEY, algorithms=['HS256'])
-        return payload['sub']  
-    except jwt.ExpiredSignatureError:
-        return 'Token has expired'
-    except jwt.InvalidTokenError:
-        return 'Invalid token'
-    except Exception as e:
-        return str(e) 

@@ -6,8 +6,8 @@ import os
 
 registration_bp = Blueprint('registration', __name__)
 
-@registration_bp.route('/')
-def index():
+@registration_bp.route('/register', methods=['GET'])
+def register():
     committees = [
         "UNGA", "UNSC", "UNHRC", "DISEC", "Lok Sabha",
         "International Press", "AIPPM", "WHO"
@@ -16,13 +16,13 @@ def index():
 
 
 @registration_bp.route('/register', methods=['POST'])
-def register():
+def register_post():
     form = request.form
     file = request.files.get('payment_receipt')
 
     if not file or not allowed_file(file.filename):
         flash('Invalid or missing payment receipt file.')
-        return redirect(url_for('registration.index'))
+        return redirect(url_for('registration.register'))  # Fixed redirect to the correct route
 
     filename = secure_filename(file.filename)
     filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
@@ -71,4 +71,4 @@ def register():
     finally:
         cursor.close()
 
-    return redirect(url_for('registration.index'))
+    return redirect(url_for('registration.register'))  # Fixed redirect to the correct route
